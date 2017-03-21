@@ -119,6 +119,22 @@ class App extends Component {
             console.log( 'Failed fetching data: ', error )
         }
 
+        var request = require('request-promise');
+
+   var options= {
+    headers: { 'Access-Control-Allow-Origin': 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiNThjYmI2YWY4OGVlMzgyNDgzOWNkZTVhIiwidGltZSI6MTQ4OTc0NTU5Ny4zODgwMTN9.r3cU9gVZnWNwRmFKFrhM4muKVQRyvUQIJWGylG5_mLM'},
+    url: 'https://www.data.gouv.fr/api/1/organizations/?page_size=1',
+    datatype : 'json',
+    type:'GET',
+  };
+
+//  var url = 'https://www.data.gouv.fr/api/1/organizations/?page_size=1?api-key=eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoiNThjYmI2YWY4OGVlMzgyNDgzOWNkZTVhIiwidGltZSI6MTQ4OTc0NTU5Ny4zODgwMTN9.r3cU9gVZnWNwRmFKFrhM4muKVQRyvUQIJWGylG5_mLM'
+  request.get(options).then(function(body) {
+    var json = JSON.parse(body);
+
+    console.log(json);
+  })
+
     }
 
     //will fetch a picture with the name of the city fetched by the weather API
@@ -164,7 +180,7 @@ class App extends Component {
 
         /*
             DATA FORMAT SENT BY THE API LOKKS LIKE THIS :
-    
+
             {
                 "pixabayPicture": string, //CUSTOM ADD VIA PIXABAY API CALL
                 "location": {
@@ -187,7 +203,7 @@ class App extends Component {
                     "wind_kph": number
                 }
             }
-    
+
         */
 
         if ( weather ) {
